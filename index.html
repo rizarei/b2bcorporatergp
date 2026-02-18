@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Corporate Pricing Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-calculator"></i> B2B Corporate Pricing</h1>
+            <nav class="main-nav">
+                <button id="nav-calculator" class="nav-btn active"><i class="fa-solid fa-plus-circle"></i> New
+                    Calculator</button>
+                <button id="nav-dashboard" class="nav-btn"><i class="fa-solid fa-table-list"></i> Corporate
+                    Requests</button>
+            </nav>
+        </header>
+
+        <!-- View: Calculator -->
+        <div id="calculator-view">
+            <div class="intro-text" style="text-align: center; color: #d1d5db; margin-bottom: 2rem;">
+                <p>Calculate training program costs and pricing margins.</p>
+            </div>
+
+            <form id="pricingForm">
+                <!-- Program Information -->
+                <section class="card program-info">
+                    <h2><i class="fa-solid fa-clipboard-list"></i> Program Information</h2>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="clientName">Client Name</label>
+                            <input type="text" id="clientName" placeholder="e.g. PT Maju Mundur">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyName">Company Name</label>
+                            <input type="text" id="companyName" placeholder="e.g. Learning Club">
+                        </div>
+                        <div class="form-group">
+                            <label for="programName">Program Name</label>
+                            <input type="text" id="programName" placeholder="e.g. Leadership Training">
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryMode">Delivery Mode</label>
+                            <select id="deliveryMode">
+                                <option value="Offline">Offline</option>
+                                <option value="Online">Online</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="durationType">Duration Type</label>
+                            <select id="durationType">
+                                <option value="Full Day">Full Day (8 hours)</option>
+                                <option value="Half Day">Half Day (4 hours)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="trainerName">Trainer Name</label>
+                            <input type="text" id="trainerName" placeholder="Select Trainer">
+                        </div>
+                        <div class="form-group">
+                            <label for="trainingDate">Training Date</label>
+                            <input type="date" id="trainingDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="participants">Participants</label>
+                            <input type="number" id="participants" value="20" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="sessions">Sessions</label>
+                            <input type="number" id="sessions" value="1" min="1">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cost Components -->
+                <section class="card cost-components">
+                    <h2><i class="fa-solid fa-coins"></i> Cost Components</h2>
+                    <p class="subtitle">Enter Qty × Unit Cost for each component</p>
+                    <div class="cost-table">
+                        <div class="cost-header">
+                            <span>Component</span>
+                            <span>Qty</span>
+                            <span>Unit Cost</span>
+                            <span>Total</span>
+                        </div>
+                        <!-- Rows will be interactive -->
+                        <div class="cost-row" data-component="Trainer Fee">
+                            <label>Trainer Fee</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="cost-row" data-component="Assistant Fee">
+                            <label>Assistant Fee</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="cost-row" data-component="Coaching / Mentoring">
+                            <label>Coaching / Mentoring</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="cost-row" data-component="Transport / Accommodation">
+                            <label>Transport / Accommodation</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="cost-row" data-component="Operational Cost">
+                            <label>Operational Cost</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="cost-row" data-component="Aftersales Cost">
+                            <label>Aftersales Cost</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                        <div class="cost-row" data-component="Other Cost">
+                            <label>Other Cost</label>
+                            <div class="input-group">
+                                <input type="number" class="qty" value="1" min="0">
+                                <span class="x">×</span>
+                                <input type="number" class="unit-cost" value="0" min="0" placeholder="Unit Cost">
+                                <span class="equals">=</span>
+                                <span class="row-total">Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-cost-row">
+                        <span>Total Cost</span>
+                        <span id="grandTotalCost" class="highlight-value">Rp 0</span>
+                    </div>
+                </section>
+
+                <!-- Tax & Margin -->
+                <section class="card pricing-analysis">
+                    <h2>Pricing & Margin</h2>
+
+                    <div class="input-group-row">
+                        <label>Target Margin (%)</label>
+                        <input type="number" id="targetMargin" value="55" min="0" max="100">
+                    </div>
+
+                    <div class="pricing-summary">
+                        <div class="summary-item">
+                            <span class="label">Gross Selling Price</span>
+                            <span class="value" id="grossSellingPrice">Rp 0</span>
+                            <small class="hint">(Cost / (1 - Margin))</small>
+                        </div>
+                    </div>
+
+                    <div class="tax-config">
+                        <h3>Tax Configuration</h3>
+                        <div class="tax-row">
+                            <input type="text" id="tax1Label" value="PPN" placeholder="Tax Label">
+                            <div class="tax-input">
+                                <input type="number" id="tax1Percent" value="11" min="0">
+                                <span>%</span>
+                            </div>
+                            <span class="tax-value" id="tax1Value">Rp 0</span>
+                        </div>
+                        <div class="tax-row">
+                            <input type="text" id="tax2Label" value="PPh" placeholder="Tax Label">
+                            <div class="tax-input">
+                                <input type="number" id="tax2Percent" value="0" min="0">
+                                <span>%</span>
+                            </div>
+                            <span class="tax-value" id="tax2Value">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <div class="final-total">
+                        <span>Grand Total (Invoice Amount)</span>
+                        <span id="finalInvoiceAmount">Rp 0</span>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" id="btnSave" class="btn btn-primary"><i
+                                class="fa-solid fa-floppy-disk"></i> Save Pricing</button>
+                    </div>
+                </section>
+            </form>
+        </div>
+
+        <!-- View: Corporate Requests (Dashboard) -->
+        <div id="dashboard-view" class="hidden">
+            <section class="card">
+                <div class="dashboard-header">
+                    <h2><i class="fa-solid fa-briefcase"></i> Corporate Requests</h2>
+                    <div class="dashboard-actions">
+                        <button id="btnAddRequest" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add New
+                            Request</button>
+                        <label for="csvInput" class="btn btn-secondary"><i class="fa-solid fa-file-csv"></i> Import
+                            CSV</label>
+                        <input type="file" id="csvInput" accept=".csv" class="hidden">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="requestsTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Client / Requester</th>
+                                <th>Program / Details</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be populated by JS -->
+                        </tbody>
+                    </table>
+                    <div id="no-data-msg" class="text-center hidden" style="padding: 3rem; color: #9ca3af;">
+                        <i class="fa-regular fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>No requests found.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View: Add/Edit Request Form -->
+        <div id="request-form-view" class="hidden">
+            <header>
+                <h2><i class="fa-solid fa-file-pen"></i> New Corporate Request</h2>
+                <button id="btnBackToDashboard" class="btn btn-sm btn-secondary"><i class="fa-solid fa-arrow-left"></i>
+                    Back to Dashboard</button>
+            </header>
+
+            <form id="requestForm">
+                <!-- Request Information -->
+                <section class="card">
+                    <h3><i class="fa-solid fa-circle-info"></i> Request Information</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Client Name *</label>
+                            <input type="text" id="reqClientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Order Type</label>
+                            <select id="reqOrderType">
+                                <option value="B2B">B2B</option>
+                                <option value="B2G">B2G</option>
+                                <option value="CSR">CSR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Source Marketing</label>
+                            <select id="reqSource">
+                                <option value="Inbound">Inbound</option>
+                                <option value="Outbound">Outbound</option>
+                                <option value="Referral">Referral</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Request Date</label>
+                            <input type="date" id="reqDate">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Requester Information -->
+                <section class="card">
+                    <h3><i class="fa-solid fa-user-tie"></i> Requester Information</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Requester Name</label>
+                            <input type="text" id="reqName">
+                        </div>
+                        <div class="form-group">
+                            <label>Requester Email</label>
+                            <input type="email" id="reqEmail">
+                        </div>
+                        <div class="form-group">
+                            <label>Requester WhatsApp</label>
+                            <input type="text" id="reqWA">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Training Details -->
+                <section class="card">
+                    <h3><i class="fa-solid fa-chalkboard"></i> Training Details</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Total Participants</label>
+                            <input type="number" id="reqParticipants">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Sessions</label>
+                            <input type="number" id="reqSessions">
+                        </div>
+                        <div class="form-group">
+                            <label>Delivery Mode</label>
+                            <select id="reqDeliveryMode">
+                                <option value="Offline">Offline</option>
+                                <option value="Online">Online</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Training Location</label>
+                            <input type="text" id="reqLocation" placeholder="Enter physical venue">
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Start Date</label>
+                            <input type="date" id="reqStartDate">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Additional Info -->
+                <section class="card">
+                    <h3><i class="fa-solid fa-list-check"></i> Additional Information</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Region</label>
+                            <input type="text" id="reqRegion" placeholder="e.g. Jakarta">
+                        </div>
+                        <div class="form-group">
+                            <label>Team</label>
+                            <input type="text" id="reqTeam" placeholder="e.g. Enterprise">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Desired Materials (Program Name)</label>
+                            <input type="text" id="reqMaterials" placeholder="e.g. Microsoft Excel">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Notes</label>
+                            <textarea id="reqNotes" rows="3"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px;"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="actions">
+                    <button type="button" id="btnSaveRequest" class="btn btn-primary"><i class="fa-solid fa-check"></i>
+                        Save Request</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
